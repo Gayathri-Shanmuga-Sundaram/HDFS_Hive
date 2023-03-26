@@ -1,25 +1,31 @@
-BIG DATA -HIVE
+BIG DATA - HIVE
 
+1. Add your chosen data to your GitHub repo (I'd suggest creating one that will be used to load data into your Cloudera VM)
 
+2. Clone (or pull) your data into the Cloudera VM
+	cd Documents
+	git clone https://github.com/Gayathri-Shanmuga-Sundaram/HDFS_Hive
+	git status
+	git pull origin master
 
-cd Documents
-git clone <link>
-git pull origin master
+3. In the VM, use the terminal to create a HDFS folder called data16 located within the /user/cloudera folder.
+	hdfs dfs -mkdir /user/cloudera/data16
 
+4. Copy the data from the local filesystem into your HDFS /user/cloudera/data16 folder
+	hdfs dfs -put /home/cloudera/Documents/HDFS_Hive/HR-Employee-Attrition.csv /user/cloudera/data16/
 
-hdfs dfs -mkdir /user/cloudera/data16
-hdfs dfs -put
-/home/cloudera/Documents/HDFS_Hive/HR-Employee-Attrition.csv /user/cloudera/data16/
+5. Using HUE, create a new database called data16 and load your data into this database as a hive table.
+	Create database hue editor in HIVE - data16
 
-Create database hue editor in HIVE - data16
+	hdfs dfs -chmod -R 777 /user/cloudera/data16
+	hdfs dfs -ls /user/cloudera/data16
 
-hdfs dfs -chmod -R 777 /user/cloudera/data16
-hdfs dfs -ls /user/cloudera/data16
+	Upload file
 
-Upload file
+6. Come up with a question that you want to be answered using the data - Create an SQL query to answer this question (do more than select * -- demonstrate filtering and aggregation (such as count or average)
 
-SELECT department, AVG(monthlyincome) AS avg_salary, COUNT(*) AS num_employees
-FROM hremployeeattrition
-WHERE age > 30 AND attrition = 'Yes'
-GROUP BY department
-ORDER BY avg_salary DESC;
+	SELECT department, AVG(monthlyincome) AS avg_salary, COUNT(*) AS num_employees
+	FROM hremployeeattrition
+	WHERE age > 30 AND attrition = 'Yes'
+	GROUP BY department
+	ORDER BY avg_salary DESC;
