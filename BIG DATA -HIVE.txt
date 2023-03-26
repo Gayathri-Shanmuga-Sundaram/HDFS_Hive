@@ -1,0 +1,25 @@
+BIG DATA -HIVE
+
+
+
+cd Documents
+git clone <link>
+git pull origin master
+
+
+hdfs dfs -mkdir /user/cloudera/data16
+hdfs dfs -put
+/home/cloudera/Documents/HDFS_Hive/HR-Employee-Attrition.csv /user/cloudera/data16/
+
+Create database hue editor in HIVE - data16
+
+hdfs dfs -chmod -R 777 /user/cloudera/data16
+hdfs dfs -ls /user/cloudera/data16
+
+Upload file
+
+SELECT department, AVG(monthlyincome) AS avg_salary, COUNT(*) AS num_employees
+FROM hremployeeattrition
+WHERE age > 30 AND attrition = 'Yes'
+GROUP BY department
+ORDER BY avg_salary DESC;
